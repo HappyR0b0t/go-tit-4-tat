@@ -2,6 +2,7 @@ package game
 
 import "math/rand"
 
+// Move interface
 type Strategy interface {
 	Move(turnNumber int) int
 }
@@ -49,4 +50,32 @@ func (s CopycatStrategy) Move(turnNumber int, turns [][2]int) int {
 	} else {
 		return 0
 	}
+}
+
+// Generic strategy
+type GenericStrategy struct {
+	turns []int
+}
+
+func (s GenericStrategy) Move(turnNumber int) int {
+	return s.turns[turnNumber]
+}
+
+func BuildCombinations(result *[][]int, currentCombination []int, elements []int, targetLength int) {
+	if len(currentCombination) == targetLength {
+		combo := make([]int, targetLength)
+		copy(combo, currentCombination)
+		*result = append(*result, combo)
+		return
+	}
+
+	for _, el := range elements {
+		newCombination := append(currentCombination, el)
+		BuildCombinations(result, newCombination, elements, targetLength)
+	}
+}
+
+func GenerateGenericStrategies(s GenericStrategy, turns []int) GenericStrategy {
+	s.turns = turns
+	return s
 }

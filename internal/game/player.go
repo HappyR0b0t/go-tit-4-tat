@@ -1,5 +1,7 @@
 package game
 
+import "strconv"
+
 type Player struct {
 	playerName  string
 	playerMove  int
@@ -20,4 +22,12 @@ func NewPlayer(playerName string, strategy Strategy) *Player {
 		Strategy:    strategy,
 		totalScore:  0,
 	}
+}
+
+func GenerateNames(num int) []string {
+	NamesList := make([]string, num)
+	for i := range num {
+		NamesList[i] = strconv.Itoa(i)
+	}
+	return NamesList
 }

@@ -1,7 +1,5 @@
 package game
 
-import "fmt"
-
 type Match struct {
 	playerOne      Player
 	playerTwo      Player
@@ -65,9 +63,9 @@ func (m *Match) PlayMatch() {
 		m.playerOneScore += m.playerOne.playerScore
 		m.playerTwoScore += m.playerTwo.playerScore
 
-		fmt.Println("This is move number", i+1)
-		fmt.Println("Player one move is:", m.playerOne.playerMove, "Player two move is:", m.playerTwo.playerMove)
-		fmt.Println("Player one score is:", m.playerOneScore, "Player two score is:", m.playerTwoScore)
+		// fmt.Println("This is move number", i+1)
+		// fmt.Println("Player one move is:", m.playerOne.playerMove, "Player two move is:", m.playerTwo.playerMove)
+		// fmt.Println("Player one score is:", m.playerOneScore, "Player two score is:", m.playerTwoScore)
 	}
 
 	m.playerOne.totalScore += m.playerOneScore
@@ -76,12 +74,12 @@ func (m *Match) PlayMatch() {
 	if m.playerOneScore > m.playerTwoScore {
 		m.winner = m.playerOne
 		m.loser = m.playerTwo
-		fmt.Println("Player One Wins!")
+		// fmt.Println("Player One Wins!")
 	} else if m.playerOneScore < m.playerTwoScore {
 		m.winner = m.playerTwo
 		m.loser = m.playerOne
-		fmt.Println("Player Two Wins!")
+		// fmt.Println("Player Two Wins!")
 	} else {
-		fmt.Println("It's a Tie!")
+		// fmt.Println("It's a Tie!")
 	}
 }

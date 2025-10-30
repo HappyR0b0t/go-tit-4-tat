@@ -2,64 +2,70 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"example.com/go-tit-4-tat/internal/game"
 )
 
-// --- Match ---
+var numberOfTurns = 20
 
-// --- PLayer ---
-
-// --- Strategies ---
-
-// --- Tournament ---
-
-// --------------------------------------------------------------------------
-
-// --------------------------------------------------------------------------
 func main() {
 	fmt.Println("Hello, this is tit-4-tat")
+	start := time.Now()
 
 	// match := Match{}
 
 	// Players setup
 	// playerOne := NewPlayer("One", AlwaysOneStrategy{})
 	// playerTwo := NewPlayer("Two", RandomStrategy{})
-	playerNames := []string{
-		"One",
-		"Two",
-		"Three",
-		"Four"}
-	strategies := []game.Strategy{
-		game.AlwaysOneStrategy{},
-		game.AlwaysZeroStrategy{},
-		game.RandomStrategy{},
-		game.OnesAndZeroesStrategy{}}
+	// playerNames := []string{
+	// 	"Always cooperate",
+	// 	"Always defect",
+	// 	"Randomly defect and cooperate",
+	// 	"One turn cooperate, one turn defect",
+	// }
 
-	players := []game.Player{}
-	for i := range playerNames {
-		players = append(players, *game.NewPlayer(playerNames[i], strategies[i]))
-	}
+	// strategies := []game.Strategy{
+	// 	game.AlwaysOneStrategy{},
+	// 	game.AlwaysZeroStrategy{},
+	// 	game.RandomStrategy{},
+	// 	game.OnesAndZeroesStrategy{},
+	// }
 
-	// // Match setup
-	numberOfTurns := 20
-	// match := NewMatch(*playerOne, *playerTwo, numberOfTurns)
-	// match.InitTurns(numberOfTurns)
+	// genericStrategiesTurns := [][]int{}
+	// game.BuildCombinations(&genericStrategiesTurns, []int{}, []int{0, 1}, numberOfTurns)
+	// genericPlayersNames := game.GenerateNames(len(genericStrategiesTurns))
 
-	// // Match play
-	// match.PlayMatch(playerOne, playerTwo)
-	// fmt.Println(match)
-	// fmt.Println("The rusult of match is:")
-	// fmt.Println("Player one score is:", match.playerOneScore, "Player two score is:", match.playerTwoScore)
+	// players := []game.Player{}
+	// genericStrategies := []game.Strategy{}
 
-	match := game.Match{}
+	// for _, t := range genericStrategiesTurns {
+	// 	genericStrategies = append(genericStrategies, game.GenerateGenericStrategies(game.GenericStrategy{}, t))
+	// }
 
-	//Tournament setup
+	// for i := range genericPlayersNames {
+	// 	players = append(players, *game.NewPlayer(genericPlayersNames[i], genericStrategies[i]))
+	// }
 
-	// players := []Player{*playerOne, *playerTwo}
-	matches := match.MakeMatchesV2(players, numberOfTurns)
-	fmt.Println(matches)
-	tournament := game.NewTournament(len(players), 1, numberOfTurns, matches)
-	tournament.StartTournament()
-	fmt.Println(tournament.Highscore)
+	// fmt.Println("NUMBER OF PLAYERS: ", len(players))
+
+	// // // Match setup
+	// match := game.Match{}
+
+	// //Tournament setup
+	// matches := match.MakeMatchesV2(players, numberOfTurns)
+	// fmt.Println("NUMBER OF MATCHES: ", len(matches))
+	// tournament := game.NewTournament(len(players), 1, numberOfTurns, matches)
+	// tournament.StartTournament()
+	// fmt.Println(tournament.HighScore())
+
+	// for i := range numberOfTurns {
+	// 	game.PlayTournament(i)
+	// }
+
+	game.PlayTournament(11)
+
+	duration := time.Since(start)
+	seconds := duration.Seconds()
+	fmt.Println("Time elapsed: ", seconds, "seconds")
 }
