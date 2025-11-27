@@ -55,7 +55,7 @@ func (t *Tournament) HighScore() [][]string {
 	for i := range names {
 		res = append(res, []string{"name: " + names[i] + " " + "score: " + strconv.Itoa(score[i])})
 	}
-	fmt.Println("This is highscore after all matches:")
+	// fmt.Println("This is highscore after all matches:")
 
 	if len(res) > 5 {
 		return res[:5]
@@ -63,8 +63,8 @@ func (t *Tournament) HighScore() [][]string {
 	return res
 }
 
-func PlayTournament(numberOfTurns int) {
-	fmt.Println("STARTING TOURNAMENT:")
+func PlayTournament(numberOfTurns int) [][]string {
+	// fmt.Println("STARTING TOURNAMENT:")
 	start := time.Now()
 
 	genericStrategiesTurns := [][]int{}
@@ -83,17 +83,19 @@ func PlayTournament(numberOfTurns int) {
 		players = append(players, *NewPlayer(genericPlayersNames[i], genericStrategies[i]))
 	}
 
-	fmt.Println("NUMBER OF PLAYERS: ", len(players))
+	// fmt.Println("NUMBER OF PLAYERS: ", len(players))
 
 	match := Match{}
 
 	matches := match.MakeMatchesV2(players, numberOfTurns)
-	fmt.Println("NUMBER OF MATCHES: ", len(matches))
+	// fmt.Println("NUMBER OF MATCHES: ", len(matches))
 	tournament := NewTournament(len(players), 1, numberOfTurns, matches)
 	tournament.StartTournament()
-	fmt.Println(tournament.HighScore())
+	// fmt.Println(tournament.HighScore())
 
 	duration := time.Since(start)
 	seconds := duration.Seconds()
 	fmt.Println("Time elapsed: ", seconds, "seconds")
+
+	return tournament.HighScore()
 }

@@ -31,3 +31,4 @@ func GenerateNames(num int) []string {
 	}
 	return NamesList
 }
+

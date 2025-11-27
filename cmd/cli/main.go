@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"example.com/go-tit-4-tat/internal/game"
 )
 
-var numberOfTurns = 20
+var numberOfTurns = 8
 
 func main() {
 	fmt.Println("Hello, this is tit-4-tat")
@@ -59,11 +60,41 @@ func main() {
 	// tournament.StartTournament()
 	// fmt.Println(tournament.HighScore())
 
-	// for i := range numberOfTurns {
-	// 	game.PlayTournament(i)
+	// Basic concurrent setup
+	var wg sync.WaitGroup
+	resultsChan := make(chan [][]string)
+
+	// wg.Add(numberOfTurns)
+
+	for i := range numberOfTurns {
+		wg.Add(1)
+		go func(turn int) {
+			defer wg.Done()
+			result := game.PlayTournament(turn)
+			resultsChan <- result
+		}(i)
+	}
+
+	go func() {
+		wg.Wait()
+		close(resultsChan)
+	}()
+
+	var finalRes [][][]string
+
+	for res := range resultsChan {
+		finalRes = append(finalRes, res)
+	}
+	fmt.Println(finalRes)
+
+	// var allResults [][]string
+	// for r := range results {
+	// 	allResults = append(allResults, r)
 	// }
 
-	game.PlayTournament(11)
+	// fmt.Println(allResults)
+
+	// game.PlayTournament(11)
 
 	duration := time.Since(start)
 	seconds := duration.Seconds()
